@@ -1,0 +1,32 @@
+- name: install Silverstripe
+  roles:
+    - role: geerlingguy.composer
+    - role: syntro_gmbh.silverstripe
+  hosts: default
+  # vars_files:
+  #   - vault.yml
+  vars:
+    # Required Inputs:
+    silverstripe_working_dir: "{{ lookup('env', 'ACTIONENV_WORKING_DIR') }}"
+    silverstripe_ss_base_url: "{{ lookup('env', 'ACTIONENV_SS_BASE_URL') }}"
+    silverstripe_ss_admin_username: "{{ lookup('env', 'ACTIONENV_SS_ADMIN_USERNAME') }}"
+    silverstripe_ss_admin_password: "{{ lookup('env', 'ACTIONENV_SS_ADMIN_PASSWORD') }}"
+    silverstripe_ss_database_server: "{{ lookup('env', 'ACTIONENV_SS_DATABASE_SERVER') | default('localhost', true) }}"
+    silverstripe_ss_database_name: "{{ lookup('env', 'ACTIONENV_SS_DATABASE_NAME') }}"
+    silverstripe_ss_database_username: "{{ lookup('env', 'ACTIONENV_SS_DATABASE_USERNAME') }}"
+    silverstripe_ss_database_password: "{{ lookup('env', 'ACTIONENV_SS_DATABASE_PASSWORD') }}"
+    # Optional Inputs
+    silverstripe_retained_releases: "{{ lookup('env', 'ACTIONENV_RETAIN_RELEASES') | default(4, true) }}"
+    silverstripe_htaccess_template: "{{ lookup('env', 'ACTIONENV_HTACCESS_TEMPLATE') }}"
+    silverstripe_composer_command: "{{ silverstripe_working_dir }}/composer"
+    silverstripe_ss_environment_type: "{{ lookup('env', 'ACTIONENV_ENVIRONMENT_TYPE') | default('live', true) }}"
+    silverstripe_provisioning_cmds:
+      - '{{ ss_current_release_dir_path }}/vendor/bin/sake /dev/build "flush=1"'
+    # Config variables
+    ansible_host: "{{ lookup('env', 'ACTIONENV_ANSIBLE_HOST') | default('nowhere', true) }}"
+    ansible_user: "{{ lookup('env', 'ACTIONENV_ANSIBLE_USER') | default('nobody', true) }}"
+    silverstripe_project_repository: "{{ lookup('env', 'ACTIONENV_PROJECT_REPOSITORY') | default('nothing', true) }}"
+    silverstripe_project_version: "{{ lookup('env', 'ACTIONENV_PROJECT_VERSION') | default('none', true) }}"
+    composer_path: "{{ silverstripe_working_dir }}/composer"
+    composer_home_owner: "{{ ansible_user }}"
+    composer_home_group: "{{ ansible_user }}"

@@ -1,0 +1,4 @@
+---
+roles:
+  - name: syntro_gmbh.silverstripe
+  - name: geerlingguy.composer
