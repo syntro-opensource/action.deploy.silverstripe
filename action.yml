@@ -71,7 +71,7 @@ runs:
         inventory: .action-deploy-silverstripe-temp/hosts
         galaxy_file: .action-deploy-silverstripe-temp/requirements.yml
         private_key: ${{ inputs.private_key }}
-        extra_vars: silverstripe_retained_releases=${{ inputs.retained_releases }}
+        # extra_vars:
       env:
         ACTIONENV_WORKING_DIR: ${{ inputs.working_dir }}
         ACTIONENV_SS_BASE_URL: ${{ inputs.base_url }}
