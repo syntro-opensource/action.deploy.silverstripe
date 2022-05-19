@@ -62,7 +62,7 @@ runs:
       run: echo ::set-output name=VERSION::${GITHUB_REF/refs\/tags\//}
     - name: move the playbook to the workspace
       shell: bash
-      run: cp -R ${{ github.action_path }}/playbook ${{ github.path }}/.action-deploy-silverstripe-temp
+      run: cp -R ${{ github.action_path }}/playbook ${{ github.workspace }}/.action-deploy-silverstripe-temp
     - name: Deploy to desired server
       uses: arillso/action.playbook@master
       with:
