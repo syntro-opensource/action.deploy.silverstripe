@@ -85,7 +85,7 @@ runs:
         ACTIONENV_ENVIRONMENT_TYPE: ${{ inputs.environment_type }}
         ACTIONENV_ANSIBLE_HOST: ${{ inputs.host }}
         ACTIONENV_ANSIBLE_USER: ${{ inputs.host_user }}
-        ACTIONENV_PROJECT_REPOSITORY: ${{ github.repositoryUrl }}
+        ACTIONENV_PROJECT_REPOSITORY: https://${{ github.token }}@github.com/${{ github.repository }}.git
         ACTIONENV_PROJECT_VERSION: ${{ steps.get_version.outputs.VERSION  }}
         # ACTIONENV_RETAIN_RELEASES: ${{ inputs.retained_releases }}
         ANSIBLE_HOST_KEY_CHECKING: 'false'
