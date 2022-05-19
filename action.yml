@@ -60,16 +60,16 @@ runs:
       id: get_version
       shell: bash
       run: echo ::set-output name=VERSION::${GITHUB_REF/refs\/tags\//}
-    # - name: Get the version / ref to deploy
-    #   shell: bash
-    #   run: ls ${{ github.action_path }}/playbook
+    - name: Get the version / ref to deploy
+      shell: bash
+      run: ls ${GITHUB_ACTION_PATH}/playbook
     - name: Deploy to desired server
       uses: arillso/action.playbook@master
       with:
         user: ${{ inputs.host_user }}
-        playbook: playbook/playbook.yml
-        inventory: playbook/hosts
-        galaxy_file: playbook/requirements.yml
+        playbook: ${GITHUB_ACTION_PATH}/playbook/playbook.yml
+        inventory: ${GITHUB_ACTION_PATH}/playbook/hosts
+        galaxy_file: ${GITHUB_ACTION_PATH}/playbook/requirements.yml
         private_key: ${{ inputs.private_key }}
         # extra_vars:
       env:
