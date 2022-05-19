@@ -20,6 +20,7 @@
     silverstripe_htaccess_template: "{{ lookup('env', 'ACTIONENV_HTACCESS_TEMPLATE') }}"
     silverstripe_composer_command: "{{ silverstripe_working_dir }}/composer"
     silverstripe_ss_environment_type: "{{ lookup('env', 'ACTIONENV_ENVIRONMENT_TYPE') | default('live', true) }}"
+    silverstripe_current_dir_name: "{{ lookup('env', 'ACTIONENV_CURRENT_DIR') | default('html', true) }}"
     silverstripe_provisioning_cmds:
       - '{{ ss_current_release_dir_path }}/vendor/bin/sake /dev/build "flush=1"'
     # Config variables

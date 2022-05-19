@@ -34,25 +34,27 @@ inputs:
   database_password:
     description: 'The password used to access the database'
     required: true
-  database_server:
-    description: 'The database server'
-    required: true
-    default: localhost
   # -----------------------------
   # Optional inputs
   # -----------------------------
-  project_repository:
-    default: git@github.com:${{ github.repository }}.git
-    description: Manually set an origin repository. useful for using a host-specific ssh-config on the server with a deploy key.
-  # retained_releases:
-  #   description: 'How many releases should be retained. useful if you need to rollback to an old release quickly.'
-  #   default: 4
+  current_dir:
+    description: The name of the webroot.
+    default: html
+  database_server:
+    description: 'The database server'
+    default: localhost
   environment_type:
     description: 'The environment type to be set. Defaults to live'
     default: 'live'
   htaccess_template:
     description: 'Render a custom htaccess file. Uses the default if not specified, relative to the workspace'
     default: 'htaccess.public.j2'
+  project_repository:
+    default: git@github.com:${{ github.repository }}.git
+    description: Manually set an origin repository. useful for using a host-specific ssh-config on the server with a deploy key.
+  # retained_releases:
+  #   description: 'How many releases should be retained. useful if you need to rollback to an old release quickly.'
+  #   default: 4
   # provisioning_commands:
   # add_env_keys:
 
@@ -90,6 +92,7 @@ runs:
         ACTIONENV_ANSIBLE_USER: ${{ inputs.host_user }}
         ACTIONENV_PROJECT_REPOSITORY: ${{ inputs.project_repository }}
         ACTIONENV_PROJECT_VERSION: ${{ github.ref_name  }}
+        ACTIONENV_CURRENT_DIR: ${{ inputs.current_dir }}
         # ACTIONENV_RETAIN_RELEASES: ${{ inputs.retained_releases }}
         ANSIBLE_HOST_KEY_CHECKING: 'false'
         ANSIBLE_DEPRECATION_WARNINGS: 'false'
