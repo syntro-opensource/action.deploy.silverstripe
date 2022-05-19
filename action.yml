@@ -58,6 +58,7 @@ runs:
   steps:
     - name: Get the version / ref to deploy
       id: get_version
+      shell: bash
       run: echo ::set-output name=VERSION::${GITHUB_REF/refs\/tags\//}
     - name: Deploy to desired server
       uses: arillso/action.playbook@master
