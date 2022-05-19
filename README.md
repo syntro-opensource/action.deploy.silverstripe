@@ -1,6 +1,8 @@
 # Action: Deploy Silverstripe
 
-Deploys a Github repository to a host.
+Deploys a Github repository to a host using ansible and the
+[`ansible.silverstripe`](https://github.com/syntro-opensource/ansible.silverstripe)
+role.
 
 ## Inputs
 
