@@ -51,7 +51,7 @@ inputs:
     description: 'The environment type to be set. Defaults to live'
     default: 'live'
   htaccess_template:
-    description: 'Render a custom htaccess file. Uses the default if not specified'
+    description: 'Render a custom htaccess file. Uses the default if not specified, relative to the workspace'
     default: 'htaccess.public.j2'
   # provisioning_commands:
   # add_env_keys:
@@ -84,7 +84,7 @@ runs:
         ACTIONENV_SS_DATABASE_NAME: ${{ inputs.database_name }}
         ACTIONENV_SS_DATABASE_USERNAME: ${{ inputs.database_username }}
         ACTIONENV_SS_DATABASE_PASSWORD: ${{ inputs.database_password }}
-        ACTIONENV_HTACCESS_TEMPLATE: ${{ inputs.htaccess_template }}
+        ACTIONENV_HTACCESS_TEMPLATE: ${{ github.workspace }}/${{ inputs.htaccess_template }}
         ACTIONENV_ENVIRONMENT_TYPE: ${{ inputs.environment_type }}
         ACTIONENV_ANSIBLE_HOST: ${{ inputs.host }}
         ACTIONENV_ANSIBLE_USER: ${{ inputs.host_user }}
