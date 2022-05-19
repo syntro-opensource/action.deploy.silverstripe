@@ -2,6 +2,28 @@
 
 Deploys a Github repository to a host.
 
+## Inputs
+
+| Name                 | Required | Secret | Default                                       | Description                                                                               |
+| -------------------- |:--------:|:------:| --------------------------------------------- | ----------------------------------------------------------------------------------------- |
+| `host`               |    ✅    |        | -                                             | The hostname or IP to deploy to                                                           |
+| `host_user`          |    ✅    |        | -                                             | The username with which to log in                                                         |
+| `private_key`        |    ✅    |   🔐   | -                                             | The private key to log in (passwords not supported)                                       |
+| `working_dir`        |    ✅    |        | -                                             | The directory in which to deploy. The webroot will be in a subdirectory.                  |
+| `base_url`           |    ✅    |        | -                                             | The `SS_BASE_URL` of the page                                                             |
+| `admin_username`     |    ✅    |   🔐   | -                                             | The username of the default admin                                                         |
+| `admin_password`     |    ✅    |   🔐   | -                                             | The Password of the default admin                                                         |
+| `database_name`      |    ✅    |        | -                                             | The name of the database to use                                                           |
+| `database_username`  |    ✅    |   🔐   | -                                             | The username to access the database                                                       |
+| `database_password`  |    ✅    |   🔐   | -                                             | The password to access the database                                                       |
+| `current_dir`        |          |        | `html`                                        | The name of the webroot. the webroot will be at `< working_dir >/< current_dir >`         |
+| `database_server`    |          |        | `localhost`                                   | The database server                                                                       |
+| `environment_type`   |          |        | `live`                                        | One of `dev`, `test` and `live`.                                                          |
+| `htaccess_template`  |          |        | `htaccess.public.j2`                          | Used to render a custom htaccess in the webroot. Path is relative to your repository root |
+| `project_repository` |          |        | `git@github.com:${{ github.repository }}.git` | Use a custom origin. This can be used to use custom configs for diffrent repositories.    |
+
+> This is an ongoing project, in the future we want to add more features of the [`ansible.silverstripe`](https://github.com/syntro-opensource/ansible.silverstripe) role.
+
 ## Usage Example
 
 To make use of this action, add the following to your workflows:
@@ -46,7 +68,3 @@ jobs:
         database_password: ${{ secrets.SS_DB_PASS }}
 
 ```
-
-## Options
-
-... action Options

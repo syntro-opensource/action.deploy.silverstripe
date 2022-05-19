@@ -34,60 +34,66 @@ inputs:
   database_password:
     description: 'The password used to access the database'
     required: true
-  database_server:
-    description: 'The database server'
-    required: true
-    default: localhost
   # -----------------------------
   # Optional inputs
   # -----------------------------
-  retained_releases:
-    description: 'How many releases should be retained. useful if you need to rollback to an old release quickly.'
-    default: 4
+  current_dir:
+    description: The name of the webroot.
+    default: html
+  database_server:
+    description: 'The database server'
+    default: localhost
   environment_type:
     description: 'The environment type to be set. Defaults to live'
     default: 'live'
   htaccess_template:
-    description: 'Render a custom htaccess file. Uses the default if not specified'
+    description: 'Render a custom htaccess file. Uses the default if not specified, relative to the workspace'
     default: 'htaccess.public.j2'
+  project_repository:
+    default: git@github.com:${{ github.repository }}.git
+    description: Manually set an origin repository. useful for using a host-specific ssh-config on the server with a deploy key.
+  # retained_releases:
+  #   description: 'How many releases should be retained. useful if you need to rollback to an old release quickly.'
+  #   default: 4
   # provisioning_commands:
   # add_env_keys:
 
 runs:
   using: composite
   steps:
-    - name: Get the version / ref to deploy
-      id: get_version
+    # - name: Get the version / ref to deploy
+    #   id: get_version
+    #   shell: bash
+    #   run: echo ::set-output name=VERSION::${GITHUB_REF/refs\/tags\//}
+    - name: move the playbook to the workspace
       shell: bash
-      run: echo ::set-output name=VERSION::${GITHUB_REF/refs\/tags\//}
-    - name: Get the version / ref to deploy
-      shell: bash
-      run: ls ${{ github.action_path }}
-    # - name: Deploy to desired server
-    #   uses: arillso/action.playbook@master
-    #   with:
-    #     user: ${{ inputs.host_user }}
-    #     playbook: ${{ github.action_path }}/playbook/playbook.yml
-    #     inventory: ${{ github.action_path }}/playbook/hosts
-    #     galaxy_file: ${{ github.action_path }}/playbook/requirements.yml
-    #     private_key: ${{ inputs.private_key }}
-    #     # extra_vars:
-    #   env:
-    #     ACTIONENV_WORKING_DIR: ${{ inputs.working_dir }}
-    #     ACTIONENV_SS_BASE_URL: ${{ inputs.base_url }}
-    #     ACTIONENV_SS_ADMIN_USERNAME: ${{ inputs.admin_username }}
-    #     ACTIONENV_SS_ADMIN_PASSWORD: ${{ inputs.admin_password }}
-    #     ACTIONENV_SS_DATABASE_SERVER: ${{ inputs.database_server }}
-    #     ACTIONENV_SS_DATABASE_NAME: ${{ inputs.database_name }}
-    #     ACTIONENV_SS_DATABASE_USERNAME: ${{ inputs.database_username }}
-    #     ACTIONENV_SS_DATABASE_PASSWORD: ${{ inputs.database_password }}
-    #     ACTIONENV_HTACCESS_TEMPLATE: ${{ inputs.htaccess_template }}
-    #     ACTIONENV_ENVIRONMENT_TYPE: ${{ inputs.environment_type }}
-    #     ACTIONENV_ANSIBLE_HOST: ${{ inputs.host }}
-    #     ACTIONENV_ANSIBLE_USER: ${{ inputs.host_user }}
-    #     ACTIONENV_PROJECT_REPOSITORY: ${{ github.repositoryUrl }}
-    #     ACTIONENV_PROJECT_VERSION: ${{ steps.get_version.outputs.VERSION  }}
-    #     ACTIONENV_RETAIN_RELEASES: ${{ inputs.retained_releases }}
-    #     ANSIBLE_HOST_KEY_CHECKING: 'false'
-    #     ANSIBLE_DEPRECATION_WARNINGS: 'false'
-    #     ANSIBLE_PIPELINING: 'true'
+      run: cp -R ${{ github.action_path }}/playbook ${{ github.workspace }}/.action-deploy-silverstripe-temp
+    - name: Deploy to desired server
+      uses: arillso/action.playbook@master
+      with:
+        user: ${{ inputs.host_user }}
+        playbook: .action-deploy-silverstripe-temp/playbook.yml
+        inventory: .action-deploy-silverstripe-temp/hosts
+        galaxy_file: .action-deploy-silverstripe-temp/requirements.yml
+        private_key: ${{ inputs.private_key }}
+        # extra_vars:
+      env:
+        ACTIONENV_WORKING_DIR: ${{ inputs.working_dir }}
+        ACTIONENV_SS_BASE_URL: ${{ inputs.base_url }}
+        ACTIONENV_SS_ADMIN_USERNAME: ${{ inputs.admin_username }}
+        ACTIONENV_SS_ADMIN_PASSWORD: ${{ inputs.admin_password }}
+        ACTIONENV_SS_DATABASE_SERVER: ${{ inputs.database_server }}
+        ACTIONENV_SS_DATABASE_NAME: ${{ inputs.database_name }}
+        ACTIONENV_SS_DATABASE_USERNAME: ${{ inputs.database_username }}
+        ACTIONENV_SS_DATABASE_PASSWORD: ${{ inputs.database_password }}
+        ACTIONENV_HTACCESS_TEMPLATE: ${{ github.workspace }}/${{ inputs.htaccess_template }}
+        ACTIONENV_ENVIRONMENT_TYPE: ${{ inputs.environment_type }}
+        ACTIONENV_ANSIBLE_HOST: ${{ inputs.host }}
+        ACTIONENV_ANSIBLE_USER: ${{ inputs.host_user }}
+        ACTIONENV_PROJECT_REPOSITORY: ${{ inputs.project_repository }}
+        ACTIONENV_PROJECT_VERSION: ${{ github.ref_name  }}
+        ACTIONENV_CURRENT_DIR: ${{ inputs.current_dir }}
+        # ACTIONENV_RETAIN_RELEASES: ${{ inputs.retained_releases }}
+        ANSIBLE_HOST_KEY_CHECKING: 'false'
+        ANSIBLE_DEPRECATION_WARNINGS: 'false'
+        ANSIBLE_PIPELINING: 'true'
