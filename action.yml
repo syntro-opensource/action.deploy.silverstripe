@@ -61,8 +61,9 @@ runs:
       shell: bash
       run: echo ::set-output name=VERSION::${GITHUB_REF/refs\/tags\//}
     - name: Get the version / ref to deploy
-      shell: bash
-      run: ls ${GITHUB_ACTION_PATH}/playbook
+      # shell: bash
+      container: node:16
+      run: ls ${{ github.action_path }}/playbook
     - name: Deploy to desired server
       uses: arillso/action.playbook@master
       with:
