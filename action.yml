@@ -60,34 +60,34 @@ runs:
       id: get_version
       shell: bash
       run: echo ::set-output name=VERSION::${GITHUB_REF/refs\/tags\//}
-    - name: Get the version / ref to deploy
-      shell: bash
-      run: ls ${{ github.action_path }}/playbook
-    # - name: Deploy to desired server
-    #   uses: arillso/action.playbook@master
-    #   with:
-    #     user: ${{ inputs.host_user }}
-    #     playbook: ${{ github.action_path }}/playbook/playbook.yml
-    #     inventory: ${{ github.action_path }}/playbook/hosts
-    #     galaxy_file: ${{ github.action_path }}/playbook/requirements.yml
-    #     private_key: ${{ inputs.private_key }}
-    #     # extra_vars:
-    #   env:
-    #     ACTIONENV_WORKING_DIR: ${{ inputs.working_dir }}
-    #     ACTIONENV_SS_BASE_URL: ${{ inputs.base_url }}
-    #     ACTIONENV_SS_ADMIN_USERNAME: ${{ inputs.admin_username }}
-    #     ACTIONENV_SS_ADMIN_PASSWORD: ${{ inputs.admin_password }}
-    #     ACTIONENV_SS_DATABASE_SERVER: ${{ inputs.database_server }}
-    #     ACTIONENV_SS_DATABASE_NAME: ${{ inputs.database_name }}
-    #     ACTIONENV_SS_DATABASE_USERNAME: ${{ inputs.database_username }}
-    #     ACTIONENV_SS_DATABASE_PASSWORD: ${{ inputs.database_password }}
-    #     ACTIONENV_HTACCESS_TEMPLATE: ${{ inputs.htaccess_template }}
-    #     ACTIONENV_ENVIRONMENT_TYPE: ${{ inputs.environment_type }}
-    #     ACTIONENV_ANSIBLE_HOST: ${{ inputs.host }}
-    #     ACTIONENV_ANSIBLE_USER: ${{ inputs.host_user }}
-    #     ACTIONENV_PROJECT_REPOSITORY: ${{ github.repositoryUrl }}
-    #     ACTIONENV_PROJECT_VERSION: ${{ steps.get_version.outputs.VERSION  }}
-    #     ACTIONENV_RETAIN_RELEASES: ${{ inputs.retained_releases }}
-    #     ANSIBLE_HOST_KEY_CHECKING: 'false'
-    #     ANSIBLE_DEPRECATION_WARNINGS: 'false'
-    #     ANSIBLE_PIPELINING: 'true'
+    # - name: Get the version / ref to deploy
+    #   shell: bash
+    #   run: ls ${{ github.action_path }}/playbook
+    - name: Deploy to desired server
+      uses: arillso/action.playbook@master
+      with:
+        user: ${{ inputs.host_user }}
+        playbook: ${GITHUB_ACTION_PATH}/playbook/playbook.yml
+        inventory: ${GITHUB_ACTION_PATH}/playbook/hosts
+        galaxy_file: ${GITHUB_ACTION_PATH}/playbook/requirements.yml
+        private_key: ${{ inputs.private_key }}
+        # extra_vars:
+      env:
+        ACTIONENV_WORKING_DIR: ${{ inputs.working_dir }}
+        ACTIONENV_SS_BASE_URL: ${{ inputs.base_url }}
+        ACTIONENV_SS_ADMIN_USERNAME: ${{ inputs.admin_username }}
+        ACTIONENV_SS_ADMIN_PASSWORD: ${{ inputs.admin_password }}
+        ACTIONENV_SS_DATABASE_SERVER: ${{ inputs.database_server }}
+        ACTIONENV_SS_DATABASE_NAME: ${{ inputs.database_name }}
+        ACTIONENV_SS_DATABASE_USERNAME: ${{ inputs.database_username }}
+        ACTIONENV_SS_DATABASE_PASSWORD: ${{ inputs.database_password }}
+        ACTIONENV_HTACCESS_TEMPLATE: ${{ inputs.htaccess_template }}
+        ACTIONENV_ENVIRONMENT_TYPE: ${{ inputs.environment_type }}
+        ACTIONENV_ANSIBLE_HOST: ${{ inputs.host }}
+        ACTIONENV_ANSIBLE_USER: ${{ inputs.host_user }}
+        ACTIONENV_PROJECT_REPOSITORY: ${{ github.repositoryUrl }}
+        ACTIONENV_PROJECT_VERSION: ${{ steps.get_version.outputs.VERSION  }}
+        ACTIONENV_RETAIN_RELEASES: ${{ inputs.retained_releases }}
+        ANSIBLE_HOST_KEY_CHECKING: 'false'
+        ANSIBLE_DEPRECATION_WARNINGS: 'false'
+        ANSIBLE_PIPELINING: 'true'
