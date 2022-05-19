@@ -67,9 +67,9 @@ runs:
       uses: arillso/action.playbook@master
       with:
         user: ${{ inputs.host_user }}
-        playbook: ${GITHUB_ACTION_PATH}/playbook/playbook.yml
-        inventory: ${GITHUB_ACTION_PATH}/playbook/hosts
-        galaxy_file: ${GITHUB_ACTION_PATH}/playbook/requirements.yml
+        playbook: playbook/playbook.yml
+        inventory: playbook/hosts
+        galaxy_file: playbook/requirements.yml
         private_key: ${{ inputs.private_key }}
         # extra_vars:
       env:
