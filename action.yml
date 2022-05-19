@@ -42,7 +42,7 @@ inputs:
   # Optional inputs
   # -----------------------------
   project_repository:
-    default: git@github.com/${{ github.repository }}.git
+    default: git@github.com:${{ github.repository }}.git
     description: Manually set an origin repository. useful for using a host-specific ssh-config on the server with a deploy key.
   # retained_releases:
   #   description: 'How many releases should be retained. useful if you need to rollback to an old release quickly.'
