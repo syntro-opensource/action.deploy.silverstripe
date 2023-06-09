@@ -23,6 +23,7 @@ role.
 | `environment_type`   |          |        | `live`                                        | One of `dev`, `test` and `live`.                                                          |
 | `htaccess_template`  |          |        | `htaccess.public.j2`                          | Used to render a custom htaccess in the webroot. Path is relative to your repository root |
 | `project_repository` |          |        | `git@github.com:${{ github.repository }}.git` | Use a custom origin. This can be used to use custom configs for diffrent repositories.    |
+| `composer_command`   |          |        | -                                             | Use a custom composer command instead of the installed one |
 
 > This is an ongoing project, in the future we want to add more features of the [`ansible.silverstripe`](https://github.com/syntro-opensource/ansible.silverstripe) role.
 
