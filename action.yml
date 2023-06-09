@@ -52,6 +52,8 @@ inputs:
   project_repository:
     default: git@github.com:${{ github.repository }}.git
     description: Manually set an origin repository. useful for using a host-specific ssh-config on the server with a deploy key.
+  composer_command:
+    description: Manually set the composer command
   # retained_releases:
   #   description: 'How many releases should be retained. useful if you need to rollback to an old release quickly.'
   #   default: 4
@@ -93,6 +95,7 @@ runs:
         ACTIONENV_PROJECT_REPOSITORY: ${{ inputs.project_repository }}
         ACTIONENV_PROJECT_VERSION: ${{ github.ref_name  }}
         ACTIONENV_CURRENT_DIR: ${{ inputs.current_dir }}
+        ACTIONENV_COMPOSER_COMMAND: ${{ inputs.composer_command }}
         # ACTIONENV_RETAIN_RELEASES: ${{ inputs.retained_releases }}
         ANSIBLE_HOST_KEY_CHECKING: 'false'
         ANSIBLE_DEPRECATION_WARNINGS: 'false'
