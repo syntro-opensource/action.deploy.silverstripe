@@ -18,7 +18,7 @@
     # Optional Inputs
     silverstripe_retained_releases: 3
     silverstripe_htaccess_template: "{{ lookup('env', 'ACTIONENV_HTACCESS_TEMPLATE') }}"
-    silverstripe_composer_command: "{{ lookup('env', 'ACTIONENV_COMPOSER_COMMAND') | default('{{ silverstripe_working_dir }}/composer', true) }}"
+    silverstripe_composer_command: "{{ lookup('env', 'ACTIONENV_COMPOSER_COMMAND') | default( silverstripe_working_dir + '/composer', true) }}"
     # silverstripe_composer_command: "{{ silverstripe_working_dir }}/composer"
     silverstripe_ss_environment_type: "{{ lookup('env', 'ACTIONENV_ENVIRONMENT_TYPE') | default('live', true) }}"
     silverstripe_current_dir_name: "{{ lookup('env', 'ACTIONENV_CURRENT_DIR') | default('html', true) }}"
