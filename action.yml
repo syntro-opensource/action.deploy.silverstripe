@@ -40,6 +40,9 @@ inputs:
   current_dir:
     description: The name of the webroot.
     default: html
+  database_class:
+    description: 'The database class used by silverstripe'
+    default: MySQLPDODatabase
   database_server:
     description: 'The database server'
     default: localhost
@@ -54,6 +57,9 @@ inputs:
     description: Manually set an origin repository. useful for using a host-specific ssh-config on the server with a deploy key.
   composer_command:
     description: Manually set the composer command
+  error_log:
+    description: 'The path to the error log'
+    default: '../../../logs/ss_log.log'
   # retained_releases:
   #   description: 'How many releases should be retained. useful if you need to rollback to an old release quickly.'
   #   default: 4
@@ -86,6 +92,7 @@ runs:
         ACTIONENV_SS_ADMIN_PASSWORD: ${{ inputs.admin_password }}
         ACTIONENV_SS_DATABASE_SERVER: ${{ inputs.database_server }}
         ACTIONENV_SS_DATABASE_NAME: ${{ inputs.database_name }}
+        ACTIONENV_SS_DATABASE_CLASS: ${{ inputs.database_class }}
         ACTIONENV_SS_DATABASE_USERNAME: ${{ inputs.database_username }}
         ACTIONENV_SS_DATABASE_PASSWORD: ${{ inputs.database_password }}
         ACTIONENV_HTACCESS_TEMPLATE: ${{ github.workspace }}/${{ inputs.htaccess_template }}
@@ -96,6 +103,7 @@ runs:
         ACTIONENV_PROJECT_VERSION: ${{ github.ref_name  }}
         ACTIONENV_CURRENT_DIR: ${{ inputs.current_dir }}
         ACTIONENV_COMPOSER_COMMAND: ${{ inputs.composer_command }}
+        ACTIONENV_SS_ERROR_LOG: ${{ inputs.error_log }}
         # ACTIONENV_RETAIN_RELEASES: ${{ inputs.retained_releases }}
         ANSIBLE_HOST_KEY_CHECKING: 'false'
         ANSIBLE_DEPRECATION_WARNINGS: 'false'
