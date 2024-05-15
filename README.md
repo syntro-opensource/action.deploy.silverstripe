@@ -15,6 +15,7 @@ role.
 | `base_url`           |    ✅    |        | -                                             | The `SS_BASE_URL` of the page                                                             |
 | `admin_username`     |    ✅    |   🔐   | -                                             | The username of the default admin                                                         |
 | `admin_password`     |    ✅    |   🔐   | -                                             | The Password of the default admin                                                         |
+| `database_class`     |          |        | `MySQLPDODatabase`                            | The name of the database class to use                                                           |
 | `database_name`      |    ✅    |        | -                                             | The name of the database to use                                                           |
 | `database_username`  |    ✅    |   🔐   | -                                             | The username to access the database                                                       |
 | `database_password`  |    ✅    |   🔐   | -                                             | The password to access the database                                                       |
@@ -24,6 +25,7 @@ role.
 | `htaccess_template`  |          |        | `htaccess.public.j2`                          | Used to render a custom htaccess in the webroot. Path is relative to your repository root |
 | `project_repository` |          |        | `git@github.com:${{ github.repository }}.git` | Use a custom origin. This can be used to use custom configs for diffrent repositories.    |
 | `composer_command`   |          |        | -                                             | Use a custom composer command instead of the installed one |
+| `error_log`          |          |        | `../../../logs/ss_log.log`                    | The Location of the error log                                                             |
 
 > This is an ongoing project, in the future we want to add more features of the [`ansible.silverstripe`](https://github.com/syntro-opensource/ansible.silverstripe) role.
 
