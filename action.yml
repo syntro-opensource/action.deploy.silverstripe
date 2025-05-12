@@ -77,7 +77,7 @@ runs:
       shell: bash
       run: cp -R ${{ github.action_path }}/playbook ${{ github.workspace }}/.action-deploy-silverstripe-temp
     - name: Deploy to desired server
-      uses: arillso/action.playbook@master
+      uses: arillso/action.playbook@0.1.0
       with:
         user: ${{ inputs.host_user }}
         playbook: .action-deploy-silverstripe-temp/playbook.yml
