@@ -4,6 +4,9 @@ Deploys a Github repository to a host using ansible and the
 [`ansible.silverstripe`](https://github.com/syntro-opensource/ansible.silverstripe)
 role.
 
+## Requirements
+* Silverstripe >= 6
+
 ## Inputs
 
 | Name                 | Required | Secret | Default                                       | Description                                                                               |

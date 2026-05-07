@@ -25,7 +25,7 @@
     silverstripe_ss_environment_type: "{{ lookup('env', 'ACTIONENV_ENVIRONMENT_TYPE') | default('live', true) }}"
     silverstripe_current_dir_name: "{{ lookup('env', 'ACTIONENV_CURRENT_DIR') | default('html', true) }}"
     silverstripe_provisioning_cmds:
-      - '{{ ss_current_release_dir_path }}/vendor/bin/sake /dev/build "flush=1"'
+      - '{{ ss_current_release_dir_path }}/vendor/bin/sake db:build -f'
     # Config variables
     ansible_host: "{{ lookup('env', 'ACTIONENV_ANSIBLE_HOST') | default('nowhere', true) }}"
     ansible_user: "{{ lookup('env', 'ACTIONENV_ANSIBLE_USER') | default('nobody', true) }}"
